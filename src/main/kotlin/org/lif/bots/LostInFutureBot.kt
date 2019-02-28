@@ -2,8 +2,10 @@ package org.lif.bots
 
 import org.lif.commands.Commands
 import org.lif.savedTime
+import org.telegram.telegrambots.bots.TelegramWebhookBot
 
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Chat
 import org.telegram.telegrambots.meta.api.objects.Update
@@ -11,12 +13,15 @@ import org.telegram.telegrambots.meta.api.objects.User
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException
 import org.telegram.telegrambots.meta.logging.BotLogger
 
-class LostInFutureBot : TelegramLongPollingCommandBot("Michael") {
+class LostInFutureBot : TelegramWebhookBot() {
+    override fun getBotPath() = "https://lifbot.herokuapp.com/"
+    override fun getBotUsername() = "Michael"
+
 
     private val TAG = "LiFBot"
 
 
-    override fun processNonCommandUpdate(update: Update?) {
+    override fun onWebhookUpdateReceived(update: Update?): BotApiMethod<*> {
         if (update?.hasMessage()!! && update.message.hasText()) {
 
             var messageText: String? = null
@@ -40,18 +45,15 @@ class LostInFutureBot : TelegramLongPollingCommandBot("Michael") {
 //                sendMessage("ПИДОР " + Emoji.HEAVY_BLACK_HEART, chatId)
 //            }
         }
+        return sendMessage("", "")
     }
 
-    private fun sendMessage(messageText: String?, chatId: String?) {
+    private fun sendMessage(messageText: String?, chatId: String?): SendMessage {
         val message = SendMessage()
         message.chatId = chatId.toString()
         message.text = messageText
-        try {
-            execute(message)
-            BotLogger.debug(TAG, "${message.chatId}  ${message.text}")
-        } catch (e: TelegramApiException) {
-            e.printStackTrace()
-        }
+        return message
+
     }
 
     private fun executeSetTimeCommand(user: User?, chat: Chat?): String? {
