@@ -23,7 +23,6 @@ task copyToLib(type: Copy) {
 }
 
 task runApp(type: JavaExec) {
-    jvmArgs '-Xss512k' //
 }
 
 stage.dependsOn(copyToLib)
