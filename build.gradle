@@ -22,6 +22,10 @@ task copyToLib(type: Copy) {
     from(configurations.compile)
 }
 
+task runApp(type: JavaExec) {
+    jvmArgs '-Xss512k' //
+}
+
 stage.dependsOn(copyToLib)
 
 jar {
