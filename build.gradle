@@ -11,7 +11,7 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
+mainClassName = "org.lif.Main.kt"
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 

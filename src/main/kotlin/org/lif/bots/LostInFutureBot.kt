@@ -28,7 +28,7 @@ class LostInFutureBot : TelegramLongPollingBot() {
             val chatId: String? = update.message.chatId.toString()
 
             if (isCommandForMe(update.message.text)) {
-//                System.out.println("LOGS = chatId $chatId")
+                System.out.println("LOGS = chatId $chatId")
                 when (update.message.text) {
                     Commands.reptime, Commands.reptimeGroup -> messageText =
                         executeRepTimeCommand(update.message.from, update.message.chat)
