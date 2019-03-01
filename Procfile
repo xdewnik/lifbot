@@ -1,1 +1,1 @@
-worker  ./gradlew
+web ./gradlew
