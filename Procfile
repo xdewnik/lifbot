@@ -1,1 +1,1 @@
-web ./gradlew
+bot ./gradlew
